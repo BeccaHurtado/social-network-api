@@ -1,0 +1,25 @@
+{
+  "dependencies": {
+    "express": "^4.17.3",
+    "mongoose": "^6.3.1"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "social-network-api",
+  "description": "",
+  "version": "1.0.0",
+  "main": "server.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BeccaHurtado/social-network-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BeccaHurtado/social-network-api/issues"
+  },
+  "homepage": "https://github.com/BeccaHurtado/social-network-api#readme"
+}
