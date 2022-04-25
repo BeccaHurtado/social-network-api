@@ -43,7 +43,7 @@ THEN I am able to successfully create and delete reactions to thoughts and add a
   npm i
   ```
   # Usage
-  Walkthrough video: 
+  Walkthrough video: https://drive.google.com/file/d/1kBNW9DJXHtoTa2EjNOYddvfnqhiQpgUI/view 
 
   # License
   ![GitHub license](https://img.shields.io/badge/license-None-blue.svg)
