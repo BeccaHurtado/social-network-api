@@ -1,31 +1,5 @@
 const { Schema, model, Types } = require('mongoose')
 
-const ThoughtSchema = new Schema ({
-    thoughtText: {
-        type: String,
-        required: true,
-        // must be 1-280 characters
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now,
-        get: createdAtVal => defaultFormat(createdAtVal)
-    },
-    username: {
-        type: String,
-        required: true
-    },
-    reactions: [ReactionSchema]
-},
-{
-    toJSON: {
-        virtuals: true,
-        getters: true
-    },
-    id: false
-}
-)
-
 const ReactionSchema = new Schema(
     {
         reactionId: {
@@ -52,6 +26,32 @@ const ReactionSchema = new Schema(
             getters: true
         }
     }
+)
+
+const ThoughtSchema = new Schema ({
+    thoughtText: {
+        type: String,
+        required: true,
+        // must be 1-280 characters
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+        get: createdAtVal => defaultFormat(createdAtVal)
+    },
+    username: {
+        type: String,
+        required: true
+    },
+    reactions: [ReactionSchema]
+},
+{
+    toJSON: {
+        virtuals: true,
+        getters: true
+    },
+    id: false
+}
 )
 
 const Thought = model('Thought', ThoughtSchema)
