@@ -1,18 +1,11 @@
 const { User } = require('../models')
 
 const userController = {
-    // create a new user
-    createUser({ body }, res) {
-        User.create(body)
-        .then(dbUserData => res.json(dbUserData))
-        .catch(err => res.status(400).json(err))
-    },
-    
     // get all users
     getAllUser(req, res) {
         User.find({})
             .populate({
-                path: 'thoughts',
+                path: 'thought',
                 select: '-__v'
             })
             .select('-__v')
@@ -28,7 +21,7 @@ const userController = {
     getUserById({ params }, res) {
         User.findOne({ _id: params.id })
         .populate({
-            path: 'thoughts',
+            path: 'thought',
             select: '-__v'
         })
         .select('-__v')
@@ -76,6 +69,34 @@ const userController = {
             res.json(dbUserData)
         })
         .catch(err => res.status(400).json(err))
+    },
+
+    // add a friend
+    addFriend({ params }, res) {
+        User.findOneAndUpdate(
+            { _id: params.id },
+            { $push: { friends: { friends: params.friendId } } },
+            { new: true, runValidators: true }
+        )
+        .then(dbUserData => {
+            if (!dbUserData) {
+            res.status(404).json({ message: 'no friend found with thid id'})
+            return
+            }
+            res.json(dbUserData)
+        })
+        .catch(err => res.json(err))
+    },
+
+    // remove a friend
+    removeFriend({ params }, res) {
+        User.findOneAndUpdate(
+            { _id: params.id },
+            { $pull: { friends: { friends: params.friendId } } },
+            { new: true }
+        )
+        .then(dbUserData => res.json(dbUserData))
+        .catch(err => res.json(err))
     }
 }
 
