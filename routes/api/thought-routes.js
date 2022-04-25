@@ -13,14 +13,20 @@ const {
 router
     .route('/')
     .get(getAllThought)
-    .post(addReaction)
     .post(addThought)
 
 router
     .route('/:id')
-    .delete(deleteReaction)
     .delete(deleteThought)
     .get(getThoughtById)
     .put(updateThoughtById)
+
+router
+    .route('/:id/reaction')
+    .post(addReaction)
+
+router
+    .route('/:id/reaction/:reactionId')
+    .delete(deleteReaction)
 
 module.exports = router

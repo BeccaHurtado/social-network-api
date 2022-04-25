@@ -4,10 +4,10 @@ const thoughtController = {
     // get all thoughts
     getAllThought( req, res) {
         Thought.find({})
-            .populate({
-                path: 'reaction',
-                select: '-__v'
-            })
+            // .populate({
+            //     path: 'reaction',
+            //     select: '-__v'
+            // })
             .select('-__v')
             .sort({ _id: -1 })
             .then(dbThoughtData => res.json(dbThoughtData))
@@ -19,12 +19,11 @@ const thoughtController = {
 
     // add a thought
     addThought({ params, body }, res) {
-        console.log(body)
         Thought.create(body)
             .then(({ _id }) => {
                 return User.findOneAndUpdate(
                     { _id: params.userId },
-                    { $push: { thoughts: _id } },
+                    { $push: { thought: _id } },
                     { new: true }
                 )
             })
@@ -33,7 +32,7 @@ const thoughtController = {
                     res.status(404).json({ message: 'Nothing located' })
                     return
                 }
-                res.json(dbUserData)
+                res.json(dbThoughtData)
             })
             .catch(err => res.json(err))
     },
@@ -75,8 +74,8 @@ const thoughtController = {
     // add a reaction
     addReaction({ params, body }, res) {
         Thought.findOneAndUpdate(
-            { _id: params.reactionId },
-            { $push: { resction: { reaction: body } } },
+            { _id: params.id },
+            { $push: { reaction: body } },
             { new: true, runValidators: true }
         )
         .then(dbThoughtData => {
